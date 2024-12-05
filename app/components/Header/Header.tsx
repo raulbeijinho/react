@@ -7,7 +7,11 @@ export default function Header() {
     <header className={styles.header}>
         <h1>React e Next.js</h1>
         <nav className={styles.nav}>
-            <Link href="/">Home →</Link>
+            <ul>  
+              <li>
+                <Link href="/">Home →</Link>
+              </li>
+            </ul>
         </nav>
     </header>
   )
