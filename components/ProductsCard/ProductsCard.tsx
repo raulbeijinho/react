@@ -2,7 +2,7 @@ import React from 'react'
 import {Products} from '@/app/models/interfaces'
 import Image from 'next/image'
 
-export default function ProductsCard({id, title, price, description, category, image}: Products) {
+export default function ProductsCard({title, price, description, image}: Products) {
   return <article className="m-2 p-2 bg-white rounded">
     <p className="flex justify-center"><b>{title}</b></p>
     <Image 

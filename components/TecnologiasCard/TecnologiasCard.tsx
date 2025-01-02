@@ -12,7 +12,7 @@ interface Technology {
   };
 }
 
-export default function TechnologyCard({ id, title, image, description, rating}: Technology) {
+export default function TechnologyCard({title, image, description, rating}: Technology) {
   return <article className="m-2 p-2 bg-white rounded">
       <p className="flex justify-center"><b>{title}</b></p>
       <Image 
