@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 module.exports = { 
-  images: { 
-      domains: ['deisishop.pythonanywhere.com'], // Domínio permitido para imagens externas
-  }, 
+    images: { 
+        domains: ['deisishop.pythonanywhere.com', 'upload.wikimedia.org'],
+         
+    }, 
 };
 
 const nextConfig: NextConfig = {
