@@ -1,12 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Products} from '@/app/models/interfaces'
 import Image from 'next/image'
 
-
-
 export default function ProductsCard({title, price, description, image}: Products) {
   return <article className="m-2 p-2 bg-white rounded">
-    <input className="m-2 p-2 rounded bg-gray-300" placeholder="Pesquisar produto"></input>
+    
     <p className="flex justify-center"><b>{title}</b></p>
     <Image 
       src={image}
