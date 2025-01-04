@@ -8,11 +8,14 @@ import ProductsCard from '@/components/ProductsCard/ProductsCard'
 export default function Page() {
   const fetcher = (url: string) => fetch(url).then(res => res.json())
   const { data, error, isLoading } = useSWR<Products[], Error>('api/products', fetcher)
-
   const [search, setSearch] = useState('')
   const [filteredData, setFilteredData] = useState<Products[]>([])
-  const [cart, setCart] = useState<Products[]>([])    
+  const [cart, setCart] = useState<Products[]>([]) 
 
+    if (error) return <div>Error loading data</div>
+    if (isLoading) return <div>Loading...</div>
+    if (!data) return <div>No data</div>
+  
   useEffect(() => {
     if (data) {
       const newFilteredData = data.filter(product =>
@@ -38,9 +41,42 @@ export default function Page() {
     }
 }, [])
 
-  if (error) return <div>Error loading data</div>
-  if (isLoading) return <div>Loading...</div>
-  if (!data) return <div>No data</div>
+const buy = () => {
+  fetch("/api/deishop/buy", {
+    method: "POST",
+    body: JSON.stringify({
+      products: cart.map(product => product.id),
+      name: "",
+      student: false,
+      coupon: ""
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    console.log('Response:', response);  // Verifique a resposta do servidor
+    return response.json();
+  })
+  .then(response => {
+    if (response) {
+      console.log('Compra bem-sucedida', response);
+      setCart([]);
+    } else {
+      console.log('Nenhuma resposta de compra recebida');
+    }
+  })
+  .catch((error) => {
+    console.log("Erro ao comprar:", error);
+  });
+};
+
+if (error) return <div>Error loading data</div>
+if (isLoading) return <div>Loading...</div>
+if (!data) return <div>No data</div>
 
   return (
     <section className="overflow-auto h-full">
@@ -87,7 +123,16 @@ export default function Page() {
                 />
               </div>
             ))}
+          {/* Botão para finalizar a compra */}
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={buy}  // Chama a função de compra
+              className="bg-red-700 text-white p-2 rounded-md hover:bg-red-800"
+            >
+              Finalizar Compra
+            </button>
           </div>
+        </div>
         ) : (
           <p className="text-center">Carrinho vazio</p>
         )}
