@@ -12,10 +12,6 @@ export default function Page() {
   const [search, setSearch] = useState('')
   const [filteredData, setFilteredData] = useState<Products[]>([])
   const [cart, setCart] = useState<Products[]>([]) 
-
-    if (error) return <div>Error loading data</div>
-    if (isLoading) return <div>Loading...</div>
-    if (!data) return <div>No data</div>
   
   useEffect(() => {
     if (data) {
